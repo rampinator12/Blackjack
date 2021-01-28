@@ -74,17 +74,25 @@ print("Score: ", score1)
 
 #Hit or stay action of player, and adds score up
 while score1 < 21:
+
+    while dealer_score < 17:  #if dealer_score<17 dealer hit and adds his score up
+        dealer_cards.append(draw_card(partial_deck))
+        dealer_score += dealer_cards[len(dealer_cards)-1].card
+        break 
+
     hit_stay = str(input("Do you want to hit or stay? "))
-    if hit_stay == "hit":
+
+    if hit_stay == "hit":    
         player_cards.append(draw_card(partial_deck))
         score1 += player_cards[len(player_cards)-1].card
         for i in range(0, len(player_cards)-1):
-            print("You now have: ", player_cards[i].card)
+            print("You now have: ", player_cards[i].suit, player_cards[i].card)
         print("Your score now is: ", score1)
     else:
         print("The dealer has a total of: ", dealer_score)
-        print("With the hand: ", dealer_cards[0].suit, dealer_cards[0].card, dealer_cards[1].suit, dealer_cards[1].card)
-        if dealer_score >= score1:
+        for i in range(0, len(dealer_cards)-1):
+            print("Dealer has:", dealer_cards[i].suit, dealer_cards[i].card)
+        if dealer_score >= score1 and dealer_score <= 21:    #Compares scores
             print("Dealer wins!!!")
         else:
             print("Player wins!!")
